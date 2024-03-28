@@ -9,9 +9,15 @@
  ******************************************************************************/
 package io.openliberty.tools.intellij.runConfiguration;
 
+import com.intellij.application.options.ModuleDescriptionsComboBox;
+import com.intellij.execution.ui.ConfigurationModuleSelector;
+import com.intellij.execution.ui.DefaultJreSelector;
+import com.intellij.execution.ui.JrePathEditor;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ui.configuration.JdkComboBox;
+import com.intellij.openapi.roots.ui.configuration.ProjectJdkConfigurableUi;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.EditorTextField;
@@ -29,9 +35,15 @@ public class LibertyRunSettingsEditor extends SettingsEditor<LibertyRunConfigura
     private JPanel root;
     private LabeledComponent<EditorTextField> editableParams;
     private LabeledComponent<ComboBox> libertyModule;
+
     private StateRestoringCheckBox runInContainerCheckBox;
+    private JrePathEditor myJrePathEditor;
+    private final ConfigurationModuleSelector myModuleSelector;
+    private LabeledComponent<ModuleDescriptionsComboBox> myModule;
 
     public LibertyRunSettingsEditor(Project project) {
+        myModuleSelector = new ConfigurationModuleSelector(project, getModulesComponent());
+        myJrePathEditor.setDefaultJreSelector(DefaultJreSelector.fromModuleDependencies(getModulesComponent(), false));
         libertyModule.getComponent().setModel(new DefaultComboBoxModel(LibertyModules.getInstance().getLibertyBuildFilesAsString(project).toArray()));
     }
 
@@ -71,5 +83,16 @@ public class LibertyRunSettingsEditor extends SettingsEditor<LibertyRunConfigura
         editableParams = new LabeledComponent<>();
         editableParams.setComponent(new EditorTextField());
         runInContainerCheckBox = new StateRestoringCheckBox();
+
+//        final var ui = new ProjectJdkConfigurableUi();
+//        libertyJdkComponent = new LabeledComponent<>();
+//        libertyJdkComponent.setComponent(ui.getJdkComboBox());
+
+
+
+    }
+
+    public ModuleDescriptionsComboBox getModulesComponent() {
+        return myModule.getComponent();
     }
 }
