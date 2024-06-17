@@ -205,7 +205,7 @@ public abstract class SingleModMPLSTestCommon {
     @Video
     public void testMicroProfileConfigHover() {
 
-        String testHoverTarget = "client.Service";
+        String testHoverTarget = "mp-rest/url";
         String hoverExpectedOutcome = "io.openliberty.mp.sample.client.Service/mp-rest/urlThe base URL to use for this service, the equivalent of the baseUrl method. This property (or */mp-rest/uri) is considered required, however implementations may have other ways to define these URLs/URIs.Type: java.lang.StringValue: http://localhost:9081/data/client/service";
 
         //mover cursor to hover point
