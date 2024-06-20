@@ -13,7 +13,6 @@ package io.openliberty.tools.intellij.lsp4mp.lsp;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.openapi.extensions.PluginId;
-import com.intellij.openapi.vfs.VirtualFile;
 import io.openliberty.tools.intellij.util.Constants;
 import io.openliberty.tools.intellij.util.JavaVersionUtil;
 import com.redhat.devtools.lsp4ij.server.ProcessStreamConnectionProvider;
@@ -50,7 +49,7 @@ public class MicroProfileServer extends ProcessStreamConnectionProvider {
     }
 
     @Override
-    public Object getInitializationOptions(VirtualFile rootUri) {
+    public Object getInitializationOptions(URI rootUri) {
         Map<String, Object> root = new HashMap<>();
         Map<String, Object> settings = new HashMap<>();
         Map<String, Object> microprofile = new HashMap<>();
