@@ -50,18 +50,41 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runtime: [ linux, mac, windows ]
+        os: [ windows ]
+        iteration: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
         include:
-          - runtime: linux
-            os: ubuntu-latest
-            reportName: linux-test-report
-          - runtime: mac
-            os: macOS-latest
-            reportName: mac-test-report
-          - runtime: windows
-            os: windows-latest
-            reportName: windows-test-report
-    env:
+          - os: windows
+            iteration: 1
+            reportName: windows-test-report-1
+          - os: windows
+            iteration: 2
+            reportName: windows-test-report-2
+          - os: windows
+            iteration: 3
+            reportName: windows-test-report-3
+          - os: windows
+            iteration: 4
+            reportName: windows-test-report-4
+          - os: windows
+            iteration: 5
+            reportName: windows-test-report-5
+          - os: windows
+            iteration: 6
+            reportName: windows-test-report-6
+          - os: windows
+            iteration: 7
+            reportName: windows-test-report-7
+          - os: windows
+            iteration: 8
+            reportName: windows-test-report-8
+          - os: windows
+            iteration: 9
+            reportName: windows-test-report-9
+          - os: windows
+            iteration: 10
+            reportName:
+              windows-test-report-10
+      env:
       USE_LOCAL_PLUGIN: ${{ inputs.useLocalPlugin || false }}
       REF_LSP4IJ: ${{ inputs.refLsp4ij }}
       LSP4IJ_BRANCH: ${{ inputs.lsp4ijBranch || 'default' }}
