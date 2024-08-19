@@ -44,6 +44,12 @@ on:
   pull_request:
     branches: [ main, lsp4ij-market-0.3.0-integration ]
 
+env:
+  USE_LOCAL_PLUGIN: ${{ inputs.useLocalPlugin || false }}
+  REF_LSP4IJ: ${{ inputs.refLsp4ij }}
+  LSP4IJ_BRANCH: ${{ inputs.lsp4ijBranch || 'default' }}
+  REF_LTI_TAG: ${{ inputs.refLTITag }}
+  
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -84,11 +90,7 @@ jobs:
             iteration: 10
             reportName:
               windows-test-report-10
-      env:
-      USE_LOCAL_PLUGIN: ${{ inputs.useLocalPlugin || false }}
-      REF_LSP4IJ: ${{ inputs.refLsp4ij }}
-      LSP4IJ_BRANCH: ${{ inputs.lsp4ijBranch || 'default' }}
-      REF_LTI_TAG: ${{ inputs.refLTITag }}
+
     steps:
       - name: Configure pagefile
         if: contains(matrix.os, 'windows')
