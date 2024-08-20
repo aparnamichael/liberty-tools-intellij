@@ -1,55 +1,12 @@
 name: Build
 
 on:
-  workflow_call:
-    inputs:
-      refLsp4ij:
-        description: 'Reference/branch for Lsp4ij checkout'
-        type: string
-        required: true
-        default: main
-      lsp4ijBranch:
-        description: 'PR number or branch name for Artifact upload'
-        type: string
-        required: true
-      useLocalPlugin:
-        description: 'Use lsp4ij locally'
-        required: true
-        type: boolean
-        default: false
-      refLTITag:
-        description: 'Reference LTI Tag/Branch'
-        type: string
-        required: true
-        default: main
   workflow_dispatch:
-    inputs:
-      useLocalPlugin:
-        description: 'Use lsp4ij locally'
-        required: true
-        type: boolean
-        default: false
-      refLsp4ij:
-        description: 'Reference/branch for Lsp4ij checkout'
-        type: string
-        required: true
-        default: main
-      refLTITag:
-        description: 'Reference LTI Tag/Branch'
-        type: string
-        required: false
-        default: main
   push:
     branches: '**'
   pull_request:
-    branches: [ main, lsp4ij-market-0.3.0-integration ]
+    branches: [ main, code-action-unification-2 ]
 
-env:
-  USE_LOCAL_PLUGIN: ${{ inputs.useLocalPlugin || false }}
-  REF_LSP4IJ: ${{ inputs.refLsp4ij }}
-  LSP4IJ_BRANCH: ${{ inputs.lsp4ijBranch || 'default' }}
-  REF_LTI_TAG: ${{ inputs.refLTITag }}
-  
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -88,9 +45,13 @@ jobs:
             reportName: windows-test-report-9
           - os: windows
             iteration: 10
-            reportName:
-              windows-test-report-10
+            reportName: windows-test-report-10
 
+    env:
+      USE_LOCAL_PLUGIN: ${{ inputs.useLocalPlugin || false }}
+      REF_LSP4IJ: ${{ inputs.refLsp4ij }}
+      LSP4IJ_BRANCH: ${{ inputs.lsp4ijBranch || 'default' }}
+      REF_LTI_TAG: ${{ inputs.refLTITag }}
     steps:
       - name: Configure pagefile
         if: contains(matrix.os, 'windows')
@@ -110,22 +71,18 @@ jobs:
 
       # Checkout and build lsp4ij only if USE_LOCAL_PLUGIN is true
       - name: 'Checkout lsp4ij'
-        if: ${{ inputs.useLocalPlugin == true }}
         uses: actions/checkout@v4
         with:
           repository: redhat-developer/lsp4ij
           path: lsp4ij
           ref: ${{ env.REF_LSP4IJ }}
       - name: 'Build Lsp4ij'
-        if: ${{ inputs.useLocalPlugin == true }}
         working-directory: ./lsp4ij
         run: bash ./gradlew buildPlugin
       - name: 'Unzip lsp4ij file'
-        if: ${{ inputs.useLocalPlugin == true }}
         working-directory: ./lsp4ij/build/distributions
         run: |
           unzip -o '*.zip' -d .
-
       - name: 'Build Liberty-Tools-Intellij'
         working-directory: ./liberty-tools-intellij
         run: bash ./gradlew buildPlugin -PuseLocal=${{ env.USE_LOCAL_PLUGIN }}
@@ -133,7 +90,7 @@ jobs:
         if: ${{ runner.os == 'Linux' && !failure() }}
         uses: actions/upload-artifact@v4.3.4
         with:
-          name: liberty-tools-intellij-LTI-${{ env.REF_LTI_TAG || 'default' }}-LSP4IJ-${{ env.LSP4IJ_BRANCH }}
+          name: liberty-tools-intellij-${{ github.sha }}-${{ matrix.iteration }}
           path: |
             ./**/*liberty-tools-intellij*.zip
             ./**/libs/*liberty-tools-intellij*.jar
@@ -147,6 +104,6 @@ jobs:
         if: ${{ failure() && steps.run_tests.conclusion == 'failure' }}
         uses: actions/upload-artifact@v4.3.4
         with:
-          name: ${{ matrix.reportName }}-LTI-${{ env.REF_LTI_TAG || 'default' }}-LSP4IJ-${{ env.LSP4IJ_BRANCH }}
+          name: ${{ matrix.reportName }}
           path: |
             liberty-tools-intellij/build/reports/
