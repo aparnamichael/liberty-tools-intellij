@@ -13,37 +13,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows ]
+        os: [ windows-latest ]
         iteration: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
         include:
           - os: windows
             iteration: 1
             reportName: windows-test-report-1
-          - os: windows
+          - os: windows-latest
             iteration: 2
             reportName: windows-test-report-2
-          - os: windows
+          - os: windows-latest
             iteration: 3
             reportName: windows-test-report-3
-          - os: windows
+          - os: windows-latest
             iteration: 4
             reportName: windows-test-report-4
-          - os: windows
+          - os: windows-latest
             iteration: 5
             reportName: windows-test-report-5
-          - os: windows
+          - os: windows-latest
             iteration: 6
             reportName: windows-test-report-6
-          - os: windows
+          - os: windows-latest
             iteration: 7
             reportName: windows-test-report-7
-          - os: windows
+          - os: windows-latest
             iteration: 8
             reportName: windows-test-report-8
-          - os: windows
+          - os: windows-latest
             iteration: 9
             reportName: windows-test-report-9
-          - os: windows
+          - os: windows-latest
             iteration: 10
             reportName: windows-test-report-10
 
