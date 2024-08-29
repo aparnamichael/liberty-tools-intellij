@@ -77,7 +77,6 @@
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.8.2</version>
                 <configuration>
                     <runtimeArtifact>
                         <groupId>com.ibm.websphere.appserver.runtime</groupId>
