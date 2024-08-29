@@ -376,13 +376,15 @@ public class TestUtils {
      */
     public static void validateTestReportExists(Path pathToTestReport) {
         int retryCountLimit = 100;
-        int retryIntervalSecs = 3;
+        int retryIntervalSecs = 1;
         int retryCount = 0;
 
         while (retryCount < retryCountLimit) {
             retryCount++;
 
             boolean fileExists = fileExists(pathToTestReport.toAbsolutePath());
+            System.out.println("Test Report " + pathToTestReport + (fileExists ? " exists." : " not exists."));
+
             if (!fileExists) {
                 try {
                     Thread.sleep(retryIntervalSecs * 1000);
