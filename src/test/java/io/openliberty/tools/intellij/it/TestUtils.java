@@ -376,7 +376,7 @@ public class TestUtils {
      */
     public static void validateTestReportExists(Path pathToTestReport) {
         int retryCountLimit = 100;
-        int retryIntervalSecs = 1;
+        int retryIntervalSecs = 3;
         int retryCount = 0;
 
         while (retryCount < retryCountLimit) {
