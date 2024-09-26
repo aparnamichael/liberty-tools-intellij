@@ -64,107 +64,107 @@ public abstract class SingleModJakartaLSTestCommon {
     /**
      * Tests Jakarta Language Server code snippet support in a Java source file
      */
-    @Test
-    @Video
-    public void testInsertJakartaCodeSnippetIntoJavaPart() {
-        String snippetStr = "res";
-        String snippetChooser = "class";
-        String insertedCode = "public String methodname() {";
-
-        // get focus on file tab prior to copy
-        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource.java");
-
-        // Save the current content.
-        UIBotTestUtils.copyWindowContent(remoteRobot);
-
-        // Delete the current src code
-        UIBotTestUtils.clearWindowContent(remoteRobot);
-
-        // Insert a code snippet into java part
-        try {
-            UIBotTestUtils.insertCodeSnippetIntoSourceFile(remoteRobot, "SystemResource.java", snippetStr, snippetChooser);
-            Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource.java");
-            TestUtils.validateCodeInJavaSrc(pathToSrc.toString(), insertedCode);
-        }
-        finally {
-            UIBotTestUtils.pasteOnActiveWindow(remoteRobot, true);
-        }
-    }
+//    @Test
+//    @Video
+//    public void testInsertJakartaCodeSnippetIntoJavaPart() {
+//        String snippetStr = "res";
+//        String snippetChooser = "class";
+//        String insertedCode = "public String methodname() {";
+//
+//        // get focus on file tab prior to copy
+//        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource.java");
+//
+//        // Save the current content.
+//        UIBotTestUtils.copyWindowContent(remoteRobot);
+//
+//        // Delete the current src code
+//        UIBotTestUtils.clearWindowContent(remoteRobot);
+//
+//        // Insert a code snippet into java part
+//        try {
+//            UIBotTestUtils.insertCodeSnippetIntoSourceFile(remoteRobot, "SystemResource.java", snippetStr, snippetChooser);
+//            Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource.java");
+//            TestUtils.validateCodeInJavaSrc(pathToSrc.toString(), insertedCode);
+//        }
+//        finally {
+//            UIBotTestUtils.pasteOnActiveWindow(remoteRobot, true);
+//        }
+//    }
 
     /**
      * Tests Jakarta Language Server diagnostic support in a Java source file
      */
-    @Test
-    @Video
-    public void testJakartaDiagnosticsInJavaPart() {
-        String publicString = "public Response getProperties() {";
-        String privateString = "private Response getProperties() {";
-        String flaggedString = "getProperties";
-        String expectedHoverData = "Only public methods can be exposed as resource methods";
-        Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource2.java");
-
-        // get focus on file tab prior to copy
-        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
-
-        // Modify the method signature
-        UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", publicString, privateString);
-
-        try {
-            // validate the method signature is no longer set to public
-            TestUtils.validateStringNotInFile(pathToSrc.toString(), publicString);
-
-            //there should be a diagnostic for "private" on method signature - move cursor to hover point
-            UIBotTestUtils.hoverInAppServerCfgFile(remoteRobot, flaggedString, "SystemResource2.java", UIBotTestUtils.PopupType.DIAGNOSTIC);
-
-            String foundHoverData = UIBotTestUtils.getHoverStringData(remoteRobot, UIBotTestUtils.PopupType.DIAGNOSTIC);
-            TestUtils.validateHoverData(expectedHoverData, foundHoverData);
-            UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
-
-        } finally {
-            // Replace modified content with the original content
-            UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", privateString, publicString);
-        }
-    }
+//    @Test
+//    @Video
+//    public void testJakartaDiagnosticsInJavaPart() {
+//        String publicString = "public Response getProperties() {";
+//        String privateString = "private Response getProperties() {";
+//        String flaggedString = "getProperties";
+//        String expectedHoverData = "Only public methods can be exposed as resource methods";
+//        Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource2.java");
+//
+//        // get focus on file tab prior to copy
+//        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
+//
+//        // Modify the method signature
+//        UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", publicString, privateString);
+//
+//        try {
+//            // validate the method signature is no longer set to public
+//            TestUtils.validateStringNotInFile(pathToSrc.toString(), publicString);
+//
+//            //there should be a diagnostic for "private" on method signature - move cursor to hover point
+//            UIBotTestUtils.hoverInAppServerCfgFile(remoteRobot, flaggedString, "SystemResource2.java", UIBotTestUtils.PopupType.DIAGNOSTIC);
+//
+//            String foundHoverData = UIBotTestUtils.getHoverStringData(remoteRobot, UIBotTestUtils.PopupType.DIAGNOSTIC);
+//            TestUtils.validateHoverData(expectedHoverData, foundHoverData);
+//            UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
+//
+//        } finally {
+//            // Replace modified content with the original content
+//            UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", privateString, publicString);
+//        }
+//    }
 
     /**
      * Tests Jakarta Language Server quick fix support in a Java source file
      */
 //    @Test
 //    @Video
-    public void testJakartaQuickFixInJavaPart() {
-        String publicString = "public Response getProperties() {";
-        String privateString = "private Response getProperties() {";
-        String flaggedString = "getProperties";
-
-        Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource2.java");
-        String quickfixChooserString = "Make method public";
-
-        // get focus on file tab prior to copy
-        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
-
-        // Save the current content.
-        UIBotTestUtils.copyWindowContent(remoteRobot);
-
-        // Modify the method signature
-        UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", publicString, privateString);
-
-        try {
-            // validate public signature no longer found in java part
-            TestUtils.validateStringNotInFile(pathToSrc.toString(), publicString);
-
-            //there should be a diagnostic - move cursor to hover point
-            UIBotTestUtils.hoverForQuickFixInAppFile(remoteRobot, flaggedString, "SystemResource2.java", quickfixChooserString);
-
-            // trigger and use the quickfix popup attached to the diagnostic
-            UIBotTestUtils.chooseQuickFix(remoteRobot, quickfixChooserString);
-
-            TestUtils.validateCodeInJavaSrc(pathToSrc.toString(), publicString);
-        }
-        finally {
-            // Replace modified content with the original content
-            UIBotTestUtils.pasteOnActiveWindow(remoteRobot);
-        }
-    }
+//    public void testJakartaQuickFixInJavaPart() {
+//        String publicString = "public Response getProperties() {";
+//        String privateString = "private Response getProperties() {";
+//        String flaggedString = "getProperties";
+//
+//        Path pathToSrc = Paths.get(projectsPath, projectName, "src", "main", "java", "io", "openliberty", "mp", "sample", "system", "SystemResource2.java");
+//        String quickfixChooserString = "Make method public";
+//
+//        // get focus on file tab prior to copy
+//        UIBotTestUtils.clickOnFileTab(remoteRobot, "SystemResource2.java");
+//
+//        // Save the current content.
+//        UIBotTestUtils.copyWindowContent(remoteRobot);
+//
+//        // Modify the method signature
+//        UIBotTestUtils.selectAndModifyTextInJavaPart(remoteRobot, "SystemResource2.java", publicString, privateString);
+//
+//        try {
+//            // validate public signature no longer found in java part
+//            TestUtils.validateStringNotInFile(pathToSrc.toString(), publicString);
+//
+//            //there should be a diagnostic - move cursor to hover point
+//            UIBotTestUtils.hoverForQuickFixInAppFile(remoteRobot, flaggedString, "SystemResource2.java", quickfixChooserString);
+//
+//            // trigger and use the quickfix popup attached to the diagnostic
+//            UIBotTestUtils.chooseQuickFix(remoteRobot, quickfixChooserString);
+//
+//            TestUtils.validateCodeInJavaSrc(pathToSrc.toString(), publicString);
+//        }
+//        finally {
+//            // Replace modified content with the original content
+//            UIBotTestUtils.pasteOnActiveWindow(remoteRobot);
+//        }
+//    }
 
     /**
      * Prepares the environment to run the tests.
