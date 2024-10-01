@@ -74,79 +74,79 @@ public abstract class SingleModNLTRestProjectTestCommon {
      * Tests manually Adding/Removing project from the tool window using the Liberty add/remove
      * options available through search everywhere panel.
      */
-//    @Test
-//    @Video
-//    public void testManualProjectAddRemoveActionUsingSearch() {
-//        // Validate that the Liberty tool window project tree is not showing. No projects are expected.
-//        UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
-//
-//        // Add the project to the Liberty tool window.
-//        UIBotTestUtils.runActionFromSearchEverywherePanel(remoteRobot, "Liberty: Add project to the tool window", 3);
-//
-//        // Select project from the 'Add Liberty project' dialog.
-//        UIBotTestUtils.selectProjectFromAddLibertyProjectDialog(remoteRobot, getSmNLTRestProjectName());
-//
-//        try {
-//            // Validate that the project is displayed in the Liberty tool window.
-//            UIBotTestUtils.findProjectInLibertyToolWindow(remoteRobot, getSmNLTRestProjectName(), "10");
-//        } finally {
-//            // Remove the project from the Liberty tool window.
-//            UIBotTestUtils.runActionFromSearchEverywherePanel(remoteRobot, "Liberty: Remove project from the tool window", 3);
-//
-//            // Select project from the 'Remote Liberty project' dialog.
-//            UIBotTestUtils.selectProjectFromRemoveLibertyProjectDialog(remoteRobot, getSmNLTRestProjectName());
-//
-//            // Answer the 'Remove Liberty project' dialog in the affirmative.
-//            UIBotTestUtils.respondToRemoveProjectQueryDialog(remoteRobot);
-//
-//            // Refresh the Liberty tool window using the refresh icon on the toolbar.
-//            UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
-//
-//            // Validate that the Liberty tool window project tree is not showing. No projects are expected.
-//            UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
-//        }
-//    }
+    @Test
+    @Video
+    public void testManualProjectAddRemoveActionUsingSearch() {
+        // Validate that the Liberty tool window project tree is not showing. No projects are expected.
+        UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
+
+        // Add the project to the Liberty tool window.
+        UIBotTestUtils.runActionFromSearchEverywherePanel(remoteRobot, "Liberty: Add project to the tool window", 3);
+
+        // Select project from the 'Add Liberty project' dialog.
+        UIBotTestUtils.selectProjectFromAddLibertyProjectDialog(remoteRobot, getSmNLTRestProjectName());
+
+        try {
+            // Validate that the project is displayed in the Liberty tool window.
+            UIBotTestUtils.findProjectInLibertyToolWindow(remoteRobot, getSmNLTRestProjectName(), "10");
+        } finally {
+            // Remove the project from the Liberty tool window.
+            UIBotTestUtils.runActionFromSearchEverywherePanel(remoteRobot, "Liberty: Remove project from the tool window", 3);
+
+            // Select project from the 'Remote Liberty project' dialog.
+            UIBotTestUtils.selectProjectFromRemoveLibertyProjectDialog(remoteRobot, getSmNLTRestProjectName());
+
+            // Answer the 'Remove Liberty project' dialog in the affirmative.
+            UIBotTestUtils.respondToRemoveProjectQueryDialog(remoteRobot);
+
+            // Refresh the Liberty tool window using the refresh icon on the toolbar.
+            UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
+
+            // Validate that the Liberty tool window project tree is not showing. No projects are expected.
+            UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
+        }
+    }
 
     /**
      * Tests:
      * - Refresh button on Liberty tool window toolbar.
      * - Detecting a project with a src/main/liberty/config/server.xml file only.
      */
-//    @Test
-//    @Video
-//    public void testsRefreshProjectWithServerXmlOnly() {
-//        // Validate that the Liberty tool window project tree is not showing. No projects are expected.
-//        UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
-//
-//        // Copy a valid server.xml file to this project's src/main/liberty/config directory.
-//        Path validServerXml = Paths.get(getHelperFilesDirPath(), "server.xml");
-//        Path destination = Paths.get(getProjectsDirPath(), getSmNLTRestProjectName(), "src", "main", "liberty", "config", "server.xml");
-//
-//        try {
-//            Files.copy(validServerXml, destination, StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
-//        } catch (Exception e) {
-//            fail("Unable to copy " + validServerXml + " to " + destination + ".", e);
-//        }
-//
-//        // Refresh the Liberty tool window using the refresh icon on the toolbar.
-//        UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
-//
-//        // Validate that the project is displayed in the Liberty tool window.
-//        try {
-//            UIBotTestUtils.findProjectInLibertyToolWindow(remoteRobot, getSmNLTRestProjectName(), "10");
-//        } finally {
-//            // Remove the previously added server.xml file.
-//            if (!TestUtils.deleteFile(destination)) {
-//                fail("Unable to delete " + destination);
-//            }
-//
-//            // Refresh the Liberty tool window using the refresh icon on the toolbar.
-//            UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
-//
-//            // Validate that the Liberty tool window project tree is not showing. No projects are expected.
-//            UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
-//        }
-//    }
+    @Test
+    @Video
+    public void testsRefreshProjectWithServerXmlOnly() {
+        // Validate that the Liberty tool window project tree is not showing. No projects are expected.
+        UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
+
+        // Copy a valid server.xml file to this project's src/main/liberty/config directory.
+        Path validServerXml = Paths.get(getHelperFilesDirPath(), "server.xml");
+        Path destination = Paths.get(getProjectsDirPath(), getSmNLTRestProjectName(), "src", "main", "liberty", "config", "server.xml");
+
+        try {
+            Files.copy(validServerXml, destination, StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            fail("Unable to copy " + validServerXml + " to " + destination + ".", e);
+        }
+
+        // Refresh the Liberty tool window using the refresh icon on the toolbar.
+        UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
+
+        // Validate that the project is displayed in the Liberty tool window.
+        try {
+            UIBotTestUtils.findProjectInLibertyToolWindow(remoteRobot, getSmNLTRestProjectName(), "10");
+        } finally {
+            // Remove the previously added server.xml file.
+            if (!TestUtils.deleteFile(destination)) {
+                fail("Unable to delete " + destination);
+            }
+
+            // Refresh the Liberty tool window using the refresh icon on the toolbar.
+            UIBotTestUtils.refreshLibertyToolWindow(remoteRobot);
+
+            // Validate that the Liberty tool window project tree is not showing. No projects are expected.
+            UIBotTestUtils.waitForLTWNoProjectDetectedMsg(remoteRobot, 10);
+        }
+    }
 
     /**
      * Tests:
@@ -155,11 +155,11 @@ public abstract class SingleModNLTRestProjectTestCommon {
      * The build file in this case uses a buildscript block to customize the version and the
      * location of the Liberty Tools binary dependency.
      */
-//    @Test
-//    @Video
-//    public void testsRefreshProjectWithLTBuildCfgOnlyWithBldScriptBlock() {
-//        testsRefreshProjectWithLTBuildCfgOnly(getBuildFileName());
-//    }
+    @Test
+    @Video
+    public void testsRefreshProjectWithLTBuildCfgOnlyWithBldScriptBlock() {
+        testsRefreshProjectWithLTBuildCfgOnly(getBuildFileName());
+    }
 
     /**
      * Tests:
