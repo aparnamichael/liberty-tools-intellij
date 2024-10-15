@@ -88,9 +88,9 @@ jobs:
         if: ${{ inputs.useLocalPlugin == true }}
         uses: actions/checkout@v4
         with:
-          repository: redhat-developer/lsp4ij
+          repository: aparnamichael/lsp4ij
           path: lsp4ij
-          ref: ${{ env.REF_LSP4IJ }}
+          ref: lsp4ij-test
       - name: 'Build Lsp4ij'
         if: ${{ inputs.useLocalPlugin == true }}
         working-directory: ./lsp4ij
