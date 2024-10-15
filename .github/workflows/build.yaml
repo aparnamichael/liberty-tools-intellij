@@ -90,7 +90,7 @@ jobs:
         with:
           repository: aparnamichael/lsp4ij
           path: lsp4ij
-          ref: lsp4ij-test
+          ref: ${{ env.REF_LSP4IJ }}
       - name: 'Build Lsp4ij'
         if: ${{ inputs.useLocalPlugin == true }}
         working-directory: ./lsp4ij
