@@ -23,6 +23,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow anchor="right" id="Liberty" icon="/icons/OL_logo_13.svg"
                     factoryClass="io.openliberty.tools.intellij.LibertyDevToolWindowFactory"/>
+        <toolWindow id="HTMLViewer" icon="/icons/OL_logo_13.svg" anchor="right" factoryClass="io.openliberty.tools.intellij.LibertyHTMLWindowFactory"/>
         <projectService serviceImplementation="io.openliberty.tools.intellij.LibertyProjectSettings"/>
         <configurationType implementation="io.openliberty.tools.intellij.runConfiguration.LibertyRunConfigurationType"/>
     </extensions>
